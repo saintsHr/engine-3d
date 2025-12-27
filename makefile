@@ -15,7 +15,7 @@ DEPFLAGS := -MMD -MP
 CFLAGS := $(INCLUDE) -Wall -Wextra $(DEPFLAGS)
 RELEASEFLAGS := $(INCLUDE) -O3 $(DEPFLAGS)
 
-TARGET := engine
+TARGET := solus
 LIB := lib/lib$(TARGET).a
 
 # ====================================================
