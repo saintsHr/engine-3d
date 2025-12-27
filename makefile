@@ -9,31 +9,31 @@ CC := gcc
 AR := ar
 RM := rm -rf
 
+INCLUDE := -Iinclude -Iglfw
+
 DEPFLAGS := -MMD -MP
-CFLAGS := -Iinclude -Wall -Wextra $(DEPFLAGS)
-RELEASEFLAGS := -O3 -Iinclude $(DEPFLAGS)
-LDFLAGS := 
+CFLAGS := $(INCLUDE) -Wall -Wextra $(DEPFLAGS)
+RELEASEFLAGS := $(INCLUDE) -O3 $(DEPFLAGS)
 
 TARGET := engine
+LIB := lib/lib$(TARGET).a
 
 # ====================================================
 # Main Rules
 # ====================================================
 .PHONY: all release clean
 
-all: bin/$(TARGET)
+all: $(LIB)
 
 release: CFLAGS := $(RELEASEFLAGS)
-release: bin/$(TARGET)
-	mkdir -p lib
-	ar rcs lib/lib$(TARGET).a $(OBJ)
+release: $(LIB)
 
 # ====================================================
-# Executable
+# Library
 # ====================================================
-bin/$(TARGET): $(OBJ)
-	mkdir -p bin
-	$(CC) $(CFLAGS) $(OBJ) -o $@ $(LDFLAGS)
+$(LIB): $(OBJ)
+	@mkdir -p lib
+	$(AR) rcs $@ $(OBJ)
 
 # ====================================================
 # Object Compiling
@@ -51,4 +51,4 @@ build/%.o: src/%.c
 # Cleaning
 # ====================================================
 clean:
-	$(RM) build bin lib
+	$(RM) build lib
