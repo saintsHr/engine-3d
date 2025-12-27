@@ -1,6 +1,7 @@
 #include "Solus/core.h"
 
 #include <GLFW/glfw3.h>
+#include <stdio.h>
 
 bool slInit(){
     if (
